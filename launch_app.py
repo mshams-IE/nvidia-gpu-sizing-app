@@ -25,25 +25,41 @@ def install_requirements():
 
 def launch_app():
     """Launch the Streamlit application"""
-    print("🚀 Launching NVIDIA NIM GPU Sizing Tool...")
-    print("📊 Application will be available at: http://localhost:8080")
-    print("🔗 Cloudera AI will provide the public URL for sharing")
-    print("⏹️  Press Ctrl+C to stop the application")
+
+    # Get the port assigned by Cloudera AI
+    port = os.environ.get("CDSW_APP_PORT", "8100")
     
-    # Set environment variables for Cloudera AI
-    os.environ['STREAMLIT_SERVER_PORT'] = '8080'
-    os.environ['STREAMLIT_SERVER_ADDRESS'] = '0.0.0.0'
-    os.environ['STREAMLIT_SERVER_ENABLE_CORS'] = 'false'
+    print(f"Starting NVIDIA GPU Sizing App on port {port}")
     
-    # Launch Streamlit
+    # Launch Streamlit with Cloudera-compatible settings
     subprocess.run([
-        sys.executable, "-m", "streamlit", "run", 
-        "nim_gpu_sizing_app.py",
-        "--server.port", "8080",
-        "--server.address", "0.0.0.0",
-        "--server.enableCORS", "false",
-        "--server.enableXsrfProtection", "false"
+        sys.executable, "-m", "streamlit", "run", "nim_gpu_sizing_app.py",
+        "--server.port", port,
+        "--server.address", "127.0.0.1"  # Cloudera uses 127.0.0.1, not 0.0.0.0
     ])
+
+    # port = os.environ.get('CDSW_APP_PORT', '8100')
+    
+    # print(f"Starting Streamlit on port {port}")
+    
+    # # Set environment variables
+    # os.environ['STREAMLIT_SERVER_PORT'] = port
+    # os.environ['STREAMLIT_SERVER_ADDRESS'] = '0.0.0.0'
+    # os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
+    # os.environ['STREAMLIT_SERVER_ENABLE_CORS'] = 'false'
+    
+    # # Launch Streamlit with the correct port
+    # cmd = [
+    #     sys.executable, '-m', 'streamlit', 'run',
+    #     'nim_gpu_sizing_app.py',
+    #     '--server.port', port,
+    #     '--server.address', '0.0.0.0',
+    #     '--server.headless', 'true',
+    #     '--server.enableCORS', 'false'
+    # ]
+    
+    # print(f"Running command: {' '.join(cmd)}")
+    # subprocess.run(cmd)
 
 if __name__ == "__main__":
     print("🔧 NVIDIA NIM GPU Sizing Tool - Cloudera AI Launcher")
