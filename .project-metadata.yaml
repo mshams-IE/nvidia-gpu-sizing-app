@@ -12,9 +12,9 @@ runtimes:
 
 tasks:
   - type: start_application
-    name: Sizing App
+    name: Sizing-App
     subdomain: nvidia-sizing
-    script: launcy_app.py
-    short_summary: Starting nvidia / aws instance sizing guide
+    script: launch_app.py
+    short_summary: Starting nvidia & aws instance sizing guide
     environment_variables:
       TASK_TYPE: START_APPLICATION
