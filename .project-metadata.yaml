@@ -1,0 +1,20 @@
+name: Nvidia / AWS GPU and Instance Sizing Guide
+description: California electricity demand forecasting with Prophet.
+author: Cloudera Inc.
+specification_version: 1.0
+prototype_version: 2.0
+date: "2025-07-01"
+
+runtimes:
+  - editor: PBJ Workbench
+    kernel: Python 3.10
+    edition: Standard
+
+tasks:
+  - type: start_application
+    name: Sizing App
+    subdomain: nvidia-sizing
+    script: launcy_app.py
+    short_summary: Starting nvidia / aws instance sizing guide
+    environment_variables:
+      TASK_TYPE: START_APPLICATION
